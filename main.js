@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
+import { NearestFilter } from 'three';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -23,9 +24,9 @@ const ambientLight = new THREE.AmbientLight(0xffffff)
 scene.add(pointLight, ambientLight)
 
 
-const lightHelper = new THREE.PointLightHelper(pointLight)
-const gridHelper = new THREE.GridHelper(200, 50)
-scene.add(lightHelper,gridHelper)
+// const lightHelper = new THREE.PointLightHelper(pointLight)
+// const gridHelper = new THREE.GridHelper(200, 50)
+// scene.add(lightHelper,gridHelper)
 
 //randomly adds cubes all around the scene
 function addCubes(){
@@ -40,6 +41,11 @@ function addCubes(){
 }
 // Array(200).fill().forEach(addCubes)
 
+
+const skybox = new THREE.TextureLoader().load(`/img/bg1radial.png`)
+// skybox.minFilter = THREE.NearestFilter
+// skybox.magFilter = NearestFilter
+scene.background = skybox
 
 
 
@@ -90,7 +96,7 @@ controls.enableZoom = false
 controls.autoRotate = true
 controls.autoRotateSpeed = -0.7
 controls.rotateSpeed = 0.2
-controls.maxDistance = 20
+// controls.maxDistance = 20
 controls.minDistance = 5.6
 
 
@@ -108,21 +114,16 @@ function moveCamera(){
 
     //execute camera movement until the certain poitn on the page
     if (scrollTop <= screenHeight * 2){
-        console.log("ft")
         camera.position.y = top * -0.02
         camera.position.x = top * -0.01
-    } else{
-        controls.enabled = false
     }
 
 
-
-    if (top > -100){
+    if (top > -200){
         controls.enabled = true
     }
-    if (top <= -100) {
+    if (top <= -200) {
         controls.enabled = false
-        controls.autoRotate = false
     }
 }
 

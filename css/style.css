@@ -5,6 +5,10 @@ body {
   min-height: 400vh;
 }
 
+html {
+  scrollbar-width: none;
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -15,6 +19,7 @@ canvas {
   position: absolute;
   z-index: 100;
   background-color: aqua;
-  top: 50%;
-  opacity: 0;
+  top: 100%;
+  opacity: 1;
+  width: 300px;
 }/*# sourceMappingURL=style.css.map */
