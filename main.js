@@ -48,7 +48,8 @@ function addCubes(){
 //images
 const firstTexture = new THREE.TextureLoader().load(`./img/autumn.jpg`)
 const firstImg = new THREE.Mesh(
-    new THREE.BoxGeometry(3,2,0.01),
+    // new THREE.BoxGeometry(3,2,0.01),
+    new THREE.BoxGeometry(2,1.3,0.01),
     new THREE.MeshBasicMaterial({map: firstTexture})
 )
 firstImg.position.z = 2.6
@@ -96,17 +97,35 @@ controls.minDistance = 5.6
 
 
 let top = 0
+let screenHeight = screen.height
 
 //moving vamera on scroll
 function moveCamera(){
+
+    let scrollTop = document.documentElement.scrollTop + window.innerHeight
     top = document.body.getBoundingClientRect().top
-    console.log(top)
 
-    camera.position.y = top * -0.02
-    camera.position.x = top * -0.01
 
-    
+    //execute camera movement until the certain poitn on the page
+    if (scrollTop <= screenHeight * 2){
+        console.log("ft")
+        camera.position.y = top * -0.02
+        camera.position.x = top * -0.01
+    } else{
+        controls.enabled = false
+    }
+
+
+
+    if (top > -100){
+        controls.enabled = true
+    }
+    if (top <= -100) {
+        controls.enabled = false
+        controls.autoRotate = false
+    }
 }
+
 document.body.onscroll = moveCamera
 
 camera.position.z = 5.6;
