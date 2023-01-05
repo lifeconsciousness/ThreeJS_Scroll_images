@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import * as THREE from 'three';
-import { OrbitControls } from 'OrbitControls';
-=======
 import './css/style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-// import { InteractionManager } from 'three.interactive';
->>>>>>> 4232804 (correctly set up project)
+import { InteractionManager } from 'three.interactive';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -89,11 +84,7 @@ controls.enablePan = false
 controls.enableZoom = false
 controls.autoRotate = true
 controls.autoRotateSpeed = -0.7
-<<<<<<< HEAD
-controls.rotateSpeed = 0.2
-=======
 controls.rotateSpeed = 0.3
->>>>>>> 4232804 (correctly set up project)
 controls.minDistance = 5.6
 // controls.maxDistance = 12
 
