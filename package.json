@@ -1,5 +1,23 @@
 {
+<<<<<<< HEAD
   "dependencies": {
     "three": "^0.148.0"
+=======
+  "name": "three-js-internet-history",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "three": "^0.148.0",
+    "three.interactive": "^1.5.0"
+>>>>>>> 4232804 (correctly set up project)
   }
 }
