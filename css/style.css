@@ -1,8 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Anybody&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap");
 body {
   padding: 0;
   margin: 0;
   overflow-x: hidden !important;
   min-height: 400vh;
+  font-family: "Inconsolata", monospace;
 }
 
 html {
@@ -18,8 +23,24 @@ canvas {
 #main {
   position: absolute;
   z-index: 100;
-  background-color: aqua;
-  top: 100%;
-  opacity: 1;
-  width: 300px;
+  width: 100%;
+  padding: 2em 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  place-items: center;
+}
+#main #title {
+  color: white;
+  text-align: center;
+  grid-column: 1/11;
+}
+
+.first-section {
+  position: absolute;
+  width: 100%;
+  top: 100vh;
+  padding: 3em;
+  min-height: 70vh;
+  background-color: white;
+  grid-column: 5/10;
 }/*# sourceMappingURL=style.css.map */

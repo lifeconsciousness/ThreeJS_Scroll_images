@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
-import { NearestFilter } from 'three';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -24,9 +23,8 @@ const ambientLight = new THREE.AmbientLight(0xffffff)
 scene.add(pointLight, ambientLight)
 
 
-// const lightHelper = new THREE.PointLightHelper(pointLight)
-// const gridHelper = new THREE.GridHelper(200, 50)
-// scene.add(lightHelper,gridHelper)
+const gridHelper = new THREE.GridHelper(200, 50)
+
 
 //randomly adds cubes all around the scene
 function addCubes(){
@@ -42,10 +40,8 @@ function addCubes(){
 // Array(200).fill().forEach(addCubes)
 
 
-const skybox = new THREE.TextureLoader().load(`/img/bg1radial.png`)
-// skybox.minFilter = THREE.NearestFilter
-// skybox.magFilter = NearestFilter
-scene.background = skybox
+// const skybox = new THREE.TextureLoader().load(`/img/bg1radial.png`)
+// scene.background = skybox
 
 
 
@@ -65,7 +61,7 @@ scene.add(firstImg)
 const secondTexture = new THREE.TextureLoader().load(`./img/autumn.jpg`)
 const secondImg = new THREE.Mesh(
     new THREE.BoxGeometry(3,2,0.01),
-    new THREE.MeshBasicMaterial({map: firstTexture})
+    new THREE.MeshBasicMaterial({map: secondTexture})
 )
 secondImg.position.z = 1
 secondImg.position.x = 2.3
@@ -74,36 +70,28 @@ secondImg.rotation.y += 20
 scene.add(secondImg)
 
 
-
-
-
-
-
-
-
-
-
-
-
+secondImg.cursor = 'pointer'
 
 
 
 //orbit controls
 const controls = new OrbitControls(camera, renderer.domElement)
 
+//settings of controls
 controls.enablePan = false
 controls.enableZoom = false
 controls.autoRotate = true
 controls.autoRotateSpeed = -0.7
 controls.rotateSpeed = 0.2
-// controls.maxDistance = 20
 controls.minDistance = 5.6
+// controls.maxDistance = 12
 
 
 
 
 let top = 0
 let screenHeight = screen.height
+
 
 //moving vamera on scroll
 function moveCamera(){
@@ -114,17 +102,39 @@ function moveCamera(){
 
     //execute camera movement until the certain poitn on the page
     if (scrollTop <= screenHeight * 2){
+        //camera goes far away on scroll
         camera.position.y = top * -0.02
         camera.position.x = top * -0.01
-    }
 
+        //objects go to the left side on scroll
+        // sphere.position.x =top * 0.01
+        // firstImg.position.x = top * 0.01
+        // secondImg.position.x = top * 0.01
+
+        // sphere.position.x = -4
+        // firstImg.position.x =  -4
+        // secondImg.position.x =  -4
+        // controls.target.set(0, -2, -3)
+    }
+    
 
     if (top > -200){
         controls.enabled = true
+        controls.autoRotateSpeed = -0.7
+        scene.remove(gridHelper)
     }
     if (top <= -200) {
-        controls.enabled = false
+        // controls.enabled = false
+        controls.autoRotateSpeed = 0.2
+        scene.add(gridHelper)
     }
+    if (top > -20){
+        scene.remove(gridHelper)
+    }
+    if (top <= -20) {
+        scene.add(gridHelper)
+    }
+
 }
 
 document.body.onscroll = moveCamera
