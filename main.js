@@ -1,7 +1,6 @@
-import './css/style.css'
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { InteractionManager } from 'three.interactive';
+import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
+import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js'
+import { InteractionManager } from 'https://cdn.skypack.dev/three.interactive';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -69,10 +68,10 @@ secondImg.position.z = 1
 secondImg.position.x = 2.3
 secondImg.position.y = -0.4
 secondImg.rotation.y += 20
+secondImg.rotation.z += 0.09
 scene.add(secondImg)
 
 
-secondImg.cursor = 'pointer'
 
 
 
