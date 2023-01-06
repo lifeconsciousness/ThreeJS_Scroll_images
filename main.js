@@ -62,7 +62,7 @@ scene.add(firstImg)
 
 const secondTexture = new THREE.TextureLoader().load(`./img/autumn.jpg`)
 const secondImg = new THREE.Mesh(
-    new THREE.BoxGeometry(3,2,0.01),
+    new THREE.BoxGeometry(2,1.3,0.01),
     new THREE.MeshBasicMaterial({map: secondTexture})
 )
 secondImg.position.z = 1
@@ -82,8 +82,8 @@ const controls = new OrbitControls(camera, renderer.domElement)
 //settings of controls
 controls.enablePan = false
 controls.enableZoom = false
-controls.autoRotate = true
-controls.autoRotateSpeed = -0.7
+controls.autoRotate = false
+controls.autoRotateSpeed = -0.5
 controls.rotateSpeed = 0.3
 controls.minDistance = 5.6
 // controls.maxDistance = 12
@@ -107,16 +107,6 @@ function moveCamera(){
         //camera goes far away on scroll
         camera.position.y = top * -0.02
         camera.position.x = top * -0.01
-
-        //objects go to the left side on scroll
-        // sphere.position.x =top * 0.01
-        // firstImg.position.x = top * 0.01
-        // secondImg.position.x = top * 0.01
-
-        // sphere.position.x = -4
-        // firstImg.position.x =  -4
-        // secondImg.position.x =  -4
-        // controls.target.set(0, -2, -3)
     }
     
 
@@ -145,6 +135,32 @@ camera.position.z = 5.6;
 
 
 
+const imagesArray = [firstImg, secondImg]
+
+//allows to easily interact with the objects
+const interactionManager = new InteractionManager(
+    renderer,
+    camera,
+    renderer.domElement
+);
+
+interactionManager.add(firstImg)
+interactionManager.add(secondImg)
+
+imagesArray.forEach(image => image.addEventListener("mouseover", ()=>{
+    document.body.style.cursor = 'pointer';
+}))
+imagesArray.forEach(image => image.addEventListener("mouseout", ()=>{
+    document.body.style.cursor = 'default';
+}))
+
+firstImg.addEventListener('click', (e)=>{
+    console.log("click")
+})
+
+
+
+
 
 
 
@@ -159,6 +175,7 @@ function animate() {
 
 
     controls.update()
+    interactionManager.update();
     renderer.render( scene, camera );
 };
 
