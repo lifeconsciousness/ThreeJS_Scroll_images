@@ -2,7 +2,7 @@ body{
     padding: 0;
     margin: 0;
     overflow-x: hidden !important;
-    min-height: 400vh;
+    min-height: 200vh;
 
     // font-family: 'Anybody', cursive;
     font-family: 'Inconsolata', monospace;
@@ -16,6 +16,7 @@ body{
 
 html{
     scrollbar-width:none;
+    scroll-behavior: smooth;
 }
 
 canvas{
@@ -53,4 +54,45 @@ canvas{
 
     // display: grid;
     // place-items: center;
+}
+
+
+.topBtn{
+    position: fixed;
+    font-family: inherit;
+    background-color: white;
+    width: 2em;
+    height: 2em;
+    bottom: 9vh;
+    right: 3vw;
+    z-index: 300;
+    border: 1px solid black;
+    padding: .3rem;
+
+    animation: fadeOut 1s ease-in-out;
+}
+@media (max-width: 475px){
+    .topBtn{
+        position: relative;
+        right: 8vw;
+    }
+}
+.topBtn:hover{
+    cursor: pointer;
+}
+@keyframes fadeOut{
+    from{ opacity: 0;}
+    to{ opacity: 1;}
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in-out forwards;   
+}
+@keyframes fadeIn{
+    0% { opacity: 1;}
+    99% { 
+        .topBtn{
+            width: 0;
+        } 
+    }
+    100% { opacity: 0;}
 }

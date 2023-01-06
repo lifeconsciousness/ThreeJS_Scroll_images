@@ -2,6 +2,11 @@ import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js'
 import { InteractionManager } from 'https://cdn.skypack.dev/three.interactive';
 
+window.addEventListener('resize', function () { 
+    "use strict";
+    window.location.reload(); 
+});
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -12,7 +17,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 //object in the middle of the screen
-const geometry = new THREE.SphereGeometry( 2, 32, 16 );
+const geometry = new THREE.SphereGeometry( 2, 30, 16 );
 const material = new THREE.MeshStandardMaterial( { color: 0x00ff00, wireframe: true} );
 const sphere = new THREE.Mesh( geometry, material );
 scene.add( sphere );
@@ -97,16 +102,16 @@ let screenHeight = screen.height
 //moving vamera on scroll
 function moveCamera(){
 
-    let scrollTop = document.documentElement.scrollTop + window.innerHeight
     top = document.body.getBoundingClientRect().top
 
+    // let scrollTop = document.documentElement.scrollTop + window.innerHeight
+    // execute camera movement until the 100vh point
+    // if (scrollTop <= screenHeight * 2){ }
 
-    //execute camera movement until the certain poitn on the page
-    if (scrollTop <= screenHeight * 2){
-        //camera goes far away on scroll
-        camera.position.y = top * -0.02
-        camera.position.x = top * -0.01
-    }
+
+    //camera goes away on scroll
+    camera.position.y = top * -0.02
+    camera.position.x = top * -0.01
     
 
     if (top > -200){
@@ -154,7 +159,7 @@ imagesArray.forEach(image => image.addEventListener("mouseout", ()=>{
 }))
 
 firstImg.addEventListener('click', (e)=>{
-    console.log("click")
+    scrollToPoint(`first-section`)
 })
 
 
@@ -179,3 +184,20 @@ function animate() {
 };
 
 animate();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function scrollToPoint(hashValue){
+    location.hash = `#` + hashValue
+}

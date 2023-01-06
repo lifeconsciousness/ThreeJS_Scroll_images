@@ -43,4 +43,64 @@ canvas {
   min-height: 70vh;
   background-color: white;
   grid-column: 5/10;
+}
+
+.topBtn {
+  position: fixed;
+  font-family: inherit;
+  /* min-width: 3rem; */
+  /* height: 3rem; */
+  font-size: 3rem;
+  bottom: 9vh;
+  right: 3vw;
+  z-index: 300;
+  border: 1px solid black;
+  padding: 0.3rem;
+  background-color: white;
+  -webkit-animation: fadeOut 1s ease-in-out;
+          animation: fadeOut 1s ease-in-out;
+}
+
+.topBtn:hover {
+  cursor: pointer;
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation: fadeIn 1s ease-in-out forwards;
+          animation: fadeIn 1s ease-in-out forwards;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }/*# sourceMappingURL=style.css.map */
