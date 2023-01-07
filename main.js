@@ -2,10 +2,11 @@ import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js'
 import { InteractionManager } from 'https://cdn.skypack.dev/three.interactive';
 
-window.addEventListener('resize', function () { 
-    "use strict";
-    window.location.reload(); 
-});
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+  }, false)
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -46,39 +47,64 @@ function addCubes(){
 // Array(200).fill().forEach(addCubes)
 
 
-// const skybox = new THREE.TextureLoader().load(`/img/bg1radial.png`)
-// scene.background = skybox
+const group = new THREE.Group()
+const distanceFromCentre = 2.3
 
+// const imageGeometry = new THREE.BoxGeometry(2,1.3,0.01)
+const imageGeometry = new THREE.BoxGeometry(1.4,1,0.01)
 
-
-
-
-//images
-const firstTexture = new THREE.TextureLoader().load(`./img/autumn.jpg`)
-const firstImg = new THREE.Mesh(
-    // new THREE.BoxGeometry(3,2,0.01),
-    new THREE.BoxGeometry(2,1.3,0.01),
-    new THREE.MeshBasicMaterial({map: firstTexture})
+/////////////images/////////////
+//1
+const texture0 = new THREE.TextureLoader().load(`./img/autumn.jpg`)
+const img0 = new THREE.Mesh(
+    imageGeometry,
+    new THREE.MeshBasicMaterial({map: texture0})
 )
-firstImg.position.z = 2.6
-scene.add(firstImg)
+img0.position.z += distanceFromCentre
+img0.lookAt(group.position)
 
-
-const secondTexture = new THREE.TextureLoader().load(`./img/autumn.jpg`)
-const secondImg = new THREE.Mesh(
-    new THREE.BoxGeometry(2,1.3,0.01),
-    new THREE.MeshBasicMaterial({map: secondTexture})
+//2
+const texture1 = new THREE.TextureLoader().load(`./img/autumn.jpg`)
+const img1 = new THREE.Mesh(
+    imageGeometry,
+    new THREE.MeshBasicMaterial({map: texture1})
 )
-secondImg.position.z = 1
-secondImg.position.x = 2.3
-secondImg.position.y = -0.4
-secondImg.rotation.y += 20
-secondImg.rotation.z += 0.09
-scene.add(secondImg)
+img1.position.z -= distanceFromCentre
+img1.lookAt(group.position)
+
+//3
+const texture2 = new THREE.TextureLoader().load(`./img/autumn.jpg`)
+const img2 = new THREE.Mesh(
+    imageGeometry,
+    new THREE.MeshBasicMaterial({map: texture2})
+)
+img2.position.x += distanceFromCentre
+img2.lookAt(group.position)
+
+//4
+const texture3 = new THREE.TextureLoader().load(`./img/autumn.jpg`)
+const img3 = new THREE.Mesh(
+    imageGeometry,
+    new THREE.MeshBasicMaterial({map: texture3})
+)
+img3.position.x -= distanceFromCentre
+img3.lookAt(group.position)
 
 
 
 
+scene.add(group)
+group.rotation.z += 0.1
+// group.rotation.x += 1.1
+
+
+
+const imagesArray = [img0, img1, img2, img3]
+
+imagesArray.forEach(image => {
+    scene.add(image)
+    group.add(image)
+})
 
 //orbit controls
 const controls = new OrbitControls(camera, renderer.domElement)
@@ -87,6 +113,7 @@ const controls = new OrbitControls(camera, renderer.domElement)
 controls.enablePan = false
 controls.enableZoom = false
 controls.autoRotate = false
+controls.enableDamping = true
 controls.autoRotateSpeed = -0.5
 controls.rotateSpeed = 0.3
 controls.minDistance = 5.6
@@ -118,10 +145,12 @@ function moveCamera(){
         controls.enabled = true
         controls.autoRotateSpeed = -0.7
         scene.remove(gridHelper)
+        controls.autoRotate = false
     }
     if (top <= -200) {
-        // controls.enabled = false
+        controls.enabled = false
         controls.autoRotateSpeed = 0.2
+        controls.autoRotate = true
         scene.add(gridHelper)
     }
     if (top > -20){
@@ -135,11 +164,9 @@ function moveCamera(){
 
 document.body.onscroll = moveCamera
 
-camera.position.z = 5.6;
 
 
 
-const imagesArray = [firstImg, secondImg]
 
 //allows to easily interact with the objects
 const interactionManager = new InteractionManager(
@@ -148,8 +175,7 @@ const interactionManager = new InteractionManager(
     renderer.domElement
 );
 
-interactionManager.add(firstImg)
-interactionManager.add(secondImg)
+imagesArray.forEach(image => interactionManager.add(image))
 
 imagesArray.forEach(image => image.addEventListener("mouseover", ()=>{
     document.body.style.cursor = 'pointer';
@@ -158,8 +184,9 @@ imagesArray.forEach(image => image.addEventListener("mouseout", ()=>{
     document.body.style.cursor = 'default';
 }))
 
-firstImg.addEventListener('click', (e)=>{
-    scrollToPoint(`first-section`)
+img0.addEventListener('click', (e)=>{
+    // scrollToPoint(1.07)
+    //do something
 })
 
 
@@ -168,14 +195,23 @@ firstImg.addEventListener('click', (e)=>{
 
 
 
+if(window.innerWidth <= 500){
+    camera.position.z = 7;
+} else if(window.innerWidth > 500){
+    camera.position.z = 5.6;
+}
 
 
+let floatingValue = 0
+let increasingDecreasing = true
 
 function animate() {
     requestAnimationFrame( animate );
 
     sphere.rotation.x += 0.0009;
     sphere.rotation.y += -0.0009;
+
+    // setInterval(floatingImages, 30);
 
 
     controls.update()
@@ -198,6 +234,30 @@ animate();
 
 
 
-function scrollToPoint(hashValue){
-    location.hash = `#` + hashValue
+const pageHeight = window.innerHeight
+
+function scrollToPoint(multiplier){
+
+    window.scrollTo({
+        top: pageHeight * multiplier,
+        behavior: "smooth"
+    })
+}
+
+
+function floatingImages(){
+    if(increasingDecreasing){
+        floatingValue += 0.00001
+    } else {
+        floatingValue -= 0.00001
+    }
+
+    if(floatingValue >= 0.1){
+        increasingDecreasing = false
+    } 
+    if(floatingValue <= -0.1){
+        increasingDecreasing = true
+    } 
+
+    img0.position.z = floatingValue + distanceFromCentre
 }

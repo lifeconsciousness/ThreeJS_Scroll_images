@@ -2,7 +2,7 @@ body{
     padding: 0;
     margin: 0;
     overflow-x: hidden !important;
-    min-height: 200vh;
+    min-height: 300vh;
 
     // font-family: 'Anybody', cursive;
     font-family: 'Inconsolata', monospace;
@@ -15,7 +15,7 @@ body{
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
 
 html{
-    scrollbar-width:none;
+    // scrollbar-width:none;
     scroll-behavior: smooth;
 }
 
@@ -40,13 +40,16 @@ canvas{
         color: white;
         text-align: center;
         grid-column: 1/11;
+
+        background-color: blue;
+        padding: 0 .2rem;
     }
 }
 
 .first-section{
     position: absolute;
     width: 100%;
-    top: 100vh;
+    top: 115vh;
     padding: 3em;
     min-height: 70vh;
     background-color: white;
@@ -61,8 +64,7 @@ canvas{
     position: fixed;
     font-family: inherit;
     background-color: white;
-    width: 2em;
-    height: 2em;
+    font-size: 3rem;
     bottom: 9vh;
     right: 3vw;
     z-index: 300;
@@ -90,9 +92,7 @@ canvas{
 @keyframes fadeIn{
     0% { opacity: 1;}
     99% { 
-        .topBtn{
-            width: 0;
-        } 
+        width: 0;
     }
     100% { opacity: 0;}
 }
