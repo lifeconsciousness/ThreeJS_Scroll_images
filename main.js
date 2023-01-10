@@ -18,7 +18,8 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 //object in the middle of the screen
-const geometry = new THREE.SphereGeometry( 2, 30, 16 );
+// const geometry = new THREE.SphereGeometry( 2, 30, 16 );
+const geometry = new THREE.SphereGeometry( 2, 20, 16 );
 const material = new THREE.MeshStandardMaterial( { color: 0x00ff00, wireframe: true} );
 const sphere = new THREE.Mesh( geometry, material );
 scene.add( sphere );
@@ -44,7 +45,7 @@ function addCubes(){
     cube.position.set(x,y,z)
     scene.add(cube)
 }
-// Array(200).fill().forEach(addCubes)
+Array(200).fill().forEach(addCubes)
 
 
 const group = new THREE.Group()
@@ -91,7 +92,7 @@ img3.position.x -= distanceFromCentre
 img3.lookAt(group.position)
 
 
-
+checkCameraDistance()
 
 scene.add(group)
 group.rotation.z += 0.1
@@ -112,9 +113,9 @@ const controls = new OrbitControls(camera, renderer.domElement)
 //settings of controls
 controls.enablePan = false
 controls.enableZoom = false
-controls.autoRotate = false
+controls.autoRotate = true
 controls.enableDamping = true
-controls.autoRotateSpeed = -0.5
+controls.autoRotateSpeed = -0.1
 controls.rotateSpeed = 0.3
 controls.minDistance = 5.6
 // controls.maxDistance = 12
@@ -146,10 +147,12 @@ function moveCamera(){
         controls.autoRotateSpeed = -0.7
         scene.remove(gridHelper)
         controls.autoRotate = false
+        
+        checkCameraDistance()
     }
     if (top <= -200) {
-        controls.enabled = false
-        controls.autoRotateSpeed = 0.2
+        controls.enabled = true
+        controls.autoRotateSpeed = -0.1
         controls.autoRotate = true
         scene.add(gridHelper)
     }
@@ -195,11 +198,7 @@ img0.addEventListener('click', (e)=>{
 
 
 
-if(window.innerWidth <= 500){
-    camera.position.z = 7;
-} else if(window.innerWidth > 500){
-    camera.position.z = 5.6;
-}
+
 
 
 let floatingValue = 0
@@ -260,4 +259,13 @@ function floatingImages(){
     } 
 
     img0.position.z = floatingValue + distanceFromCentre
+}
+
+
+function checkCameraDistance(){
+    if(window.innerWidth <= 500){
+        camera.position.z = 7;
+    } else if(window.innerWidth > 500){                
+        camera.position.z = 5.6;
+    }
 }
