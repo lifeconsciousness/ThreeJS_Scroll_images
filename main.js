@@ -144,16 +144,14 @@ function moveCamera(){
 
     if (top > -200){
         controls.enabled = true
-        controls.autoRotateSpeed = -0.7
+        controls.autoRotateSpeed = -0.1
         scene.remove(gridHelper)
-        controls.autoRotate = false
         
         checkCameraDistance()
     }
     if (top <= -200) {
         controls.enabled = true
-        controls.autoRotateSpeed = -0.1
-        controls.autoRotate = true
+        controls.autoRotateSpeed = -0.15
         scene.add(gridHelper)
     }
     if (top > -20){

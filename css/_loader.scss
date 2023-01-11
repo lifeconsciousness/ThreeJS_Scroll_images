@@ -1,0 +1,22 @@
+.loader{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+
+    .loading-animation{
+        color: white;
+    }
+}
+
+.loader-disappear-anim{
+    animation: loaderDisappear .65s forwards;
+}
+@keyframes loaderDisappear{
+    0%{ opacity: 1;}
+    50%{opacity: 1;}
+    100%{opacity: 0; display: none; z-index: 0;}
+}

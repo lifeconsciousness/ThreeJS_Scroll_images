@@ -10,66 +10,51 @@ body {
   font-family: "Inconsolata", monospace;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-canvas {
+.loader {
   position: fixed;
-  top: 0;
-  left: 0;
-}
-
-#main {
-  position: absolute;
-  z-index: 100;
-  width: 100%;
-  padding: 2em 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 1000;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
   place-items: center;
 }
-#main #title {
+.loader .loading-animation {
   color: white;
-  text-align: center;
-  grid-column: 1/11;
-  background-color: blue;
-  padding: 0 0.2rem;
 }
 
-.first-section {
-  position: absolute;
-  width: 100%;
-  top: 115vh;
-  padding: 3em;
-  min-height: 70vh;
-  background-color: white;
-  grid-column: 5/10;
-  max-height: 80vh;
+.loader-disappear-anim {
+  -webkit-animation: loaderDisappear 0.65s forwards;
+          animation: loaderDisappear 0.65s forwards;
 }
 
-.second-section {
-  position: absolute;
-  width: 100%;
-  top: 215vh;
-  padding: 3em;
-  min-height: 70vh;
-  background-color: white;
-  grid-column: 2/7;
-  max-height: 80vh;
+@-webkit-keyframes loaderDisappear {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: 0;
+  }
 }
 
-.first-section {
-  position: absolute;
-  width: 100%;
-  top: 115vh;
-  padding: 3em;
-  min-height: 70vh;
-  background-color: white;
-  grid-column: 5/10;
-  max-height: 80vh;
+@keyframes loaderDisappear {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: 0;
+  }
 }
-
 .topBtn {
   position: fixed;
   font-family: inherit;
@@ -121,10 +106,12 @@ canvas {
     opacity: 1;
   }
   99% {
-    width: 0;
+    opacity: 0;
   }
   100% {
     opacity: 0;
+    display: none;
+    z-index: 0;
   }
 }
 
@@ -133,9 +120,59 @@ canvas {
     opacity: 1;
   }
   99% {
-    width: 0;
+    opacity: 0;
   }
   100% {
     opacity: 0;
+    display: none;
+    z-index: 0;
   }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#main {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  padding: 2em 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  place-items: center;
+}
+#main #title {
+  color: white;
+  text-align: center;
+  grid-column: 1/11;
+  background-color: blue;
+  padding: 0 0.2rem;
+}
+
+.first-section {
+  position: absolute;
+  width: 100%;
+  top: 115vh;
+  padding: 3em;
+  min-height: 70vh;
+  background-color: white;
+  grid-column: 5/10;
+  max-height: 80vh;
+}
+
+.second-section {
+  position: absolute;
+  width: 100%;
+  top: 215vh;
+  padding: 3em;
+  min-height: 70vh;
+  background-color: white;
+  grid-column: 2/7;
+  max-height: 80vh;
 }/*# sourceMappingURL=style.css.map */
